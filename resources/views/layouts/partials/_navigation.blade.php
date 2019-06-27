@@ -46,7 +46,7 @@
 
             <div class="navbar-end">
                 @if (auth()->check())
-                    <a href="#" class="navbar-item">Your account</a>
+                    <a href="{{ route('account.index') }}" class="navbar-item">My account</a>
                     <a href="#" class="navbar-item" onclick="event.preventDefault(); document.getElementById('logout').submit();">Sign out</a>
                 @else
                     <a href="{{ route('login') }}" class="navbar-item">Sign in</a>
