@@ -48,12 +48,23 @@
                 @if (auth()->check())
                     <a href="{{ route('account.index') }}" class="navbar-item">My account</a>
                     <a href="#" class="navbar-item" onclick="event.preventDefault(); document.getElementById('logout').submit();">Sign out</a>
+
+                    {{-- @if (auth()->user()->hasRole('admin'))
+                        
+                    @endif --}}
+
+                   
                 @else
                     <a href="{{ route('login') }}" class="navbar-item">Sign in</a>
                     <div class="navbar-item">
                             <a href="{{ route('register') }}" class="button">Start selling</a>
                     </div>
                 @endif
+                  
+                @role('admin')
+                  <a href="#" class="navbar-item">Admin</a>
+                @endrole
+               
                 
             </div>
           
