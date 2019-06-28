@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Upload;
+use App\Traits\HasApprovals;
 use App\Models\FileApproval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,11 +14,12 @@ use Illuminate\Database\Eloquent\Builder;
 class File extends Model
 {
     use SoftDeletes;
+    use HasApprovals;
+
     const APPROVAL_PROPERTIES = [
         'title',
         'overview_short',
         'overview',
-
     ];
 
     protected $fillable = [
@@ -65,6 +68,10 @@ class File extends Model
 
             return true;
         }
+      
+        if($this->uploads()->unapproved()->count()) {
+            return true;
+        }
 
         return false;
     }
@@ -75,5 +82,9 @@ class File extends Model
     public function createApproval(array $properties)
     {
         $this->approvals()->create($properties);
+    }
+    public function uploads()
+    {
+        return $this->hasMany(Upload::class);
     }
 }

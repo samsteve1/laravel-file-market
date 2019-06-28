@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "bulma": "^0.7.5",
+        "dropzone": "^4.3.0",
         "font-awesome": "^4.7.0"
     }
 }

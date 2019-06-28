@@ -16,7 +16,13 @@
                <form action="{{ route('account.files.update', $file) }}" class="form" method="POST">
                    @csrf
                    {{ method_field('PATCH') }}
-
+                   <div class="field">
+                        <div class="needsclick dropzone" id="document-dropzone">
+                        </div>
+                        @if ($errors->has('uploads'))
+                            <p class="help is-danger">{{ $errors->first('uploads') }}</p>
+                        @endif
+                   </div>
                    <div class="field">
                        <p class="control">
                            <label for="live" class="checkbox">
@@ -77,3 +83,12 @@
        </div>
    </div>
 @endsection
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
+@endsection
+@section('scripts')
+
+    @include('files.partials._upload_js')
+@endsection
+
+

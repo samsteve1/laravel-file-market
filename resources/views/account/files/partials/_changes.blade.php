@@ -20,6 +20,15 @@
 
                 <p>{{ $approval->overview }}</p>
             @endif
+
+            @if (($uploads = $file->uploads()->unapproved()->get())->count())
+                <strong>Uploads</strong>
+
+                    
+            @foreach ($uploads as $upload)
+                <p>{{ $upload->filename }}</p>
+            @endforeach
+            @endif
         </div>
     </div>
 </article>

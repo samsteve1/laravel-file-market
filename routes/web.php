@@ -17,3 +17,6 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'namespace' => 'A
         Route::get('/{file}/create', 'FileController@create')->name('files.create');
     });
 });
+
+Route::post('/{file}/upload', 'Upload\UploadController@store')->name('upload.store');
+Route::delete('/{file}/upload/{upload}', 'Upload\UploadController@destroy')->name('upload.destroy');

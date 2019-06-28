@@ -6,7 +6,7 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Policies\File\FilePoilcy;
-use App\Http\Requests\File\{PStoreFileRequest, UpdateFileRequest};
+use App\Http\Requests\File\{StoreFileRequest, UpdateFileRequest};
 class FileController extends Controller
 {
     public function index()

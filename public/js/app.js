@@ -49413,6 +49413,12 @@ if (token) {
 //     encrypted: true
 // });
 
+/**
+ * DropZone
+ */
+// window.Dropzone = require('dropzone');
+// Dropzone.autoDiscover = false;
+
 /***/ }),
 
 /***/ "./resources/js/components/ExampleComponent.vue":

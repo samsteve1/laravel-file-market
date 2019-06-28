@@ -9,8 +9,16 @@
        </div>
        <div class="card-content">
            <div class="content">
-               <form action="{{ route('account.files.store', $file) }}" class="form" method="POST">
+               <form action="{{ route('account.files.store', $file) }}"  method="POST">
                    @csrf
+                   
+                   <div class="field">
+                        <div class="needsclick dropzone" id="document-dropzone">
+                        </div>
+                        @if ($errors->has('uploads'))
+                            <p class="help is-danger">{{ $errors->first('uploads') }}</p>
+                        @endif
+                   </div>
                    <div class="field">
                        <label for="title" class="label">Title</label>
                        <p class="control">
@@ -62,4 +70,12 @@
            </div>
        </div>
    </div>
+@endsection
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
+@endsection
+@section('scripts')
+
+    @include('files.partials._upload_js')
 @endsection
