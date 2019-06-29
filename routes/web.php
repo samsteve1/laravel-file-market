@@ -18,5 +18,34 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'namespace' => 'A
     });
 });
 
+/**
+ * Amin Routes
+ */
+
+ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+     Route::get('/', 'AdminController@index')->name('index');
+    /**
+     * File management
+     */
+     Route::group(['prefix' => '/files', 'as' => 'files.'], function () {
+         Route::group(['prefix' => '/new', 'as' => 'new.'], function () {
+             /**
+              * New Files
+              */
+            Route::get('/', 'AdminNewFileController@index')->name('index');
+            Route::patch('/{file}', 'AdminNewFileController@update')->name('update');
+            Route::delete('/{file}', 'AdminNewFileController@destroy')->name('destroy');
+         });
+         /**
+          * Updated Files
+          */
+         Route::group(['prefix' => '/updated', 'as' => 'updated.'], function () {
+             Route::get('/', 'AdminUpdatedFileController@index')->name('index');
+             Route::patch('/{file}', 'AdminUpdatedFileController@update')->name('update');
+             Route::delete('/{file}', 'AdminUpdatedFileController@destroy')->name('destroy');
+         });
+     });
+ });
+ 
 Route::post('/{file}/upload', 'Upload\UploadController@store')->name('upload.store');
 Route::delete('/{file}/upload/{upload}', 'Upload\UploadController@destroy')->name('upload.destroy');
