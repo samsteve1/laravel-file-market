@@ -31,4 +31,8 @@ class Upload extends Model
     {
         return 'id';
     }
+    public function getPathAttribute()
+    {
+        return storage_path('app/files/' . $this->file->identifier . '/' . $this->filename);
+    }
 }

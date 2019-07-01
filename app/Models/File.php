@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use App\Models\Upload;
+use App\Models\{Sale, Upload, User};
 use App\Traits\HasApprovals;
 use App\Models\FileApproval;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +42,22 @@ class File extends Model
     public function getRouteKeyName()
     {
         return 'identifier';
+    }
+
+    public function visible()
+    {
+        if (auth()->user()) {
+
+            if (auth()->user()->isAdmin()) {
+                return true;
+            }
+
+            if (auth()->user()->isTheSameAs($this->user)) {
+                return true;
+            }
+        }
+
+        return $this->live && $this->approved;
     }
 
     public function scopeFinished(Builder $builder)
@@ -126,5 +141,24 @@ class File extends Model
     public function uploads()
     {
         return $this->hasMany(Upload::class);
+    }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
+    public function calculateCommission()
+    {
+        
+        return $this->price  * (config('filemarket.sales.commission') / 100);
+    }
+
+    public function matchesSale(Sale $sale)
+    {
+        return $this->sales->contains($sale);
+    }
+
+    public function getUploadList()
+    {
+        return $this->uploads()->approved()->get()->pluck('path')->toArray();
     }
 }

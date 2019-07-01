@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\{File, Role};
+use Carbon\Carbon;
+use App\Models\{File, Role, Sale};
 use App\Traits\Roles\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'subaccount_name', 'subaccount_code',
     ];
 
     /**
@@ -39,10 +40,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function saleValueThisMonth()
+    {
+        $now = Carbon::now();
+
+        return $this->sales()->whereBetween('created_at', [
+            $now->startOfMonth(),
+            
+            $now->copy()->endOfMonth(),
+
+        ])->get()->sum('sale_price');
+
+    }   
+
+    public function saleValueOverLifeTime()
+    {
+        return $this->sales->sum('sale_price');
+    }
     public function files()
     {
         return $this->hasMany(File::class);
     }
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 
+    public function isTheSameAs(User $user)
+    {
+        return $this->id === $user->id;
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
     
 }
