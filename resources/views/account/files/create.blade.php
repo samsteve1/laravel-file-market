@@ -6,6 +6,7 @@
    <div class="card">
        <div class="card-header">
            <h1 class="card-header-title">Create a file</h1>
+           
        </div>
        <div class="card-content">
            <div class="content">
@@ -28,6 +29,23 @@
                             <p class="help is-danger">{{ $errors->first('title') }}</p>
                         @endif
                    </div>
+
+                   <div class="field">
+                    <label for="category" class="label">Category</label>
+                    <p class="control">
+                        <select name="category" id="category" class="input" required>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        
+                    </p>
+                    @if ($errors->has('category'))
+                         <p class="help is-danger">{{ $errors->first('category') }}</p>
+                     @endif
+                </div>
+
+
 
                    <div class="field">
                        <label for="overview_short" class="label">Short overview</label>

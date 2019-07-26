@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\File;
+use App\Models\{Category, File};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Policies\File\FilePoilcy;
@@ -60,9 +60,12 @@ class FileController extends Controller
     public function store(StoreFileRequest $request, File $file)
     {
         $this->authorize('touch', $file);
+        $category = Category::findOrFail($request->category);
 
         $file->fill($request->only(['title', 'overview', 'overview_short', 'price']));
         $file->finished = true;
+
+       $file->category()->associate($category);
         $file->save();
 
         return redirect()->route('account.index')->withSuccess('Your file has been submitted for review!');

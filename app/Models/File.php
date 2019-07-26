@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\{Sale, Upload, User};
+use App\Models\{Sale, Upload, User, Category};
 use App\Traits\HasApprovals;
 use App\Models\FileApproval;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +30,7 @@ class File extends Model
         'approved',
         'finished'
     ];
+    protected $appends = ['sales_count'];
 
     protected static function boot()
     {
@@ -64,6 +65,17 @@ class File extends Model
     {
         return $builder->where('finished', true);
     }
+
+    public function scopeApproved(Builder $builder)
+    {
+        return $builder->where('approved', true);
+    }
+
+    public function scopeLive(Builder $builder)
+    {
+        return $builder->where('live', true);
+    }
+
 
     public function user()
     {
@@ -161,4 +173,19 @@ class File extends Model
     {
         return $this->uploads()->approved()->get()->pluck('path')->toArray();
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
+    public function salesCount()
+    {
+        return $this->sales()->count();
+    }
+    public function getSalesCountAttribute()
+    {
+        return $this->salesCount();
+    }
+   
 }

@@ -4,6 +4,9 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/popular', 'HomeController@popular')->name('popular');
+Route::get('/categories/{category}', 'HomeController@category')->name('category');
+Route::get('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => ['has.marketplace']], function () {
     Route::get('/account/connect', 'Account\MarketPlaceConnectController@index')->name('account.connect');

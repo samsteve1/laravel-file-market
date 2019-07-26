@@ -21,12 +21,16 @@ class PaidCheckoutController extends Controller
         
         $paymentDetails = Paystack::getPaymentData();
         
+       
+
         $paymentStatus = $paymentDetails['data']['status'];
 
         if($paymentStatus == 'success') {
             $fileIdentifier = $paymentDetails['data']['metadata']['file_identifier'];
             $userEmail = $paymentDetails['data']['customer']['email'];
-            $file = File::where('identifier', '=', $fileIdentifier)->get();
+            $file = File::where('identifier', '=', $fileIdentifier)->first();
+
+            
 
             if($file->count()) {
                

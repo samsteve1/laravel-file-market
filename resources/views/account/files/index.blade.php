@@ -9,6 +9,7 @@
             <div class="content">
                 @if ($files->count())
                     @each('account.partials._file', $files, 'file')
+                    
                 @else
                     <p>You have no files yet.</p>
                 @endif
