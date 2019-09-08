@@ -1,3 +1,4 @@
+{{ dd('ok') }}
 @extends('layouts.home')
 
 @section('content')
@@ -29,7 +30,7 @@
                 @endif
             </div>
 
-            
+
         </div>
     </div>
 @endsection
