@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         $files = File::finished()->live()->approved()->paginate($this->perPage);
 
-        dd($files);
+        //dd($files);
         return $this->returnFiles('home', $files, 'All fles');
     }
 

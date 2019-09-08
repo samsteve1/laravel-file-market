@@ -3,10 +3,11 @@
 namespace App\Traits;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-trait ReturnFile 
+trait ReturnFile
 {
     public function returnFiles($view, LengthAwarePaginator $files, $title)
     {
+        dd('check');
         return view($view, [
             'files' => $files,
             'title' => ucfirst($title)
