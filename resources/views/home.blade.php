@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-header-title">
-               {{ $title }}
+               {{-- {{ $title }} --}}
             </h3>
         </div>
 
