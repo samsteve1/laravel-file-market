@@ -1,3 +1,4 @@
+{{ dd($files) }}
 @extends('layouts.home')
 
 @section('content')

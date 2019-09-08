@@ -7,7 +7,7 @@ trait ReturnFile
 {
     public function returnFiles($view, LengthAwarePaginator $files, $title)
     {
-        dd('check');
+
         return view($view, [
             'files' => $files,
             'title' => ucfirst($title)
