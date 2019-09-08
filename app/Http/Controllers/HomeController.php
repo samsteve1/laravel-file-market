@@ -12,7 +12,7 @@ class HomeController extends Controller
     use Paginate, ReturnFile;
 
     protected $perPage = 2;
-  
+
     /**
      * Show the application dashboard.
      *
@@ -21,13 +21,14 @@ class HomeController extends Controller
     public function index()
     {
         $files = File::finished()->live()->approved()->paginate($this->perPage);
-        
+
+        dd($files);
         return $this->returnFiles('home', $files, 'All fles');
     }
 
     public function popular()
     {
-       
+
         $files = File::finished()->live()->approved()->get()->sortByDesc('sales_count');
         $files = $this->paginate($files);
 
@@ -37,13 +38,13 @@ class HomeController extends Controller
     public function category(Category $category)
     {
         $files = $category->files()->paginate($this->perPage);
-        
+
        return  $this->returnFiles('home', $files, $category->name);
     }
 
     public function search(Request $request)
     {
-        
+
         if($request->has('q')) {
 
             $searchTem = $request->get('q');

@@ -1,4 +1,3 @@
-{{ dd('ok') }}
 @extends('layouts.home')
 
 @section('content')
