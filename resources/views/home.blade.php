@@ -1,4 +1,4 @@
-{{ dd($files) }}
+
 @extends('layouts.home')
 
 @section('content')
@@ -21,13 +21,13 @@
 
         <div class="card-content">
             <div class="content">
-                @if ($files->count())
+                {{-- @if ($files->count())
                     @each('home.partials._file', $files, 'file')
 
                     {{ $files->links('vendor.pagination.file-pagination') }}
                 @else
                     <p>No files</p>
-                @endif
+                @endif --}}
             </div>
 
 
