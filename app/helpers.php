@@ -1,4 +1,5 @@
 <?php
+namespace App;
 if (!function_exists('on_page')) {
     function on_page ($path)
     {
